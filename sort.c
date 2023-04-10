@@ -8,13 +8,86 @@ int extraMemoryAllocated;
 // extraMemoryAllocated counts bytes of memory allocated
 void heapSort(int arr[], int n)
 {
+    int i, temp;
+    for (int i = n/2 - 1; i >= 0; i--){
+        
+        int j = i, k = 2 * i + 1;
+
+        while( k + 1 < n && arr[k + 1] > arr[k]){
+            k++;
+        }
+        if (arr[k] > arr[j]){
+            temp = arr[j];
+            arr[j] = arr[k];
+            arr[k] = temp;
+            j = k;
+            k = 2 * j + 1;
+        } else{
+            break;
+        }
+    }
+    for ( i = n - 1; i >= 0; i --){
+        temp = arr[0];
+        arr[0] = arr[i];
+        arr[i] = temp;
+        int j = 0, k = 1;
+        while (k < i) {
+            if (k + 1 < i && arr[k + 1] > arr[k]) {
+                k++;
+            }
+            if (arr[k] > arr[j]) {
+                temp = arr[j];
+                arr[j] = arr[k];
+                arr[k] = temp;
+                j = k;
+                k = 2 * j + 1;
+            } else {
+                break;
+            }
+    }
+}
 }
 
 
 // implement merge sort
 // extraMemoryAllocated counts bytes of extra memory allocated
-void mergeSort(int pData[], int l, int r)
-{
+void mergeSort(int pData[], int l, int r){
+    if (l < r){
+
+        int mid = 1 + (r -1)/2;
+        mergeSort(pData, l, mid);
+        mergeSort(pData, mid + 1, r);
+
+        int i = l, j = mid + 1, k = 0;
+        int temp[r - l + 1];
+
+        while(i <= mid && j <= r) {
+            if (pData[i] <= pData[j]) {
+                temp[k] = pData[i];
+                i++;
+            }else{
+                temp[k] = pData[j];                                        
+                j++;
+            }
+            k++;
+        }
+        
+        while(i <= mid) {
+            temp[k] = pData[i];
+            i++;
+            k++;
+        }
+
+        while(j <= r){
+            temp[k] = pData[j];
+            j++;
+            k++;
+        }
+
+        for (i = l, k = 0; i <= r; i++, k++){
+            pData[i] = temp[k];
+        }
+    }
 }
 
 // parses input file to an integer array
