@@ -4,7 +4,7 @@
 
 int extraMemoryAllocated;
 
-// implements heap sort
+// implements heap 
 // extraMemoryAllocated counts bytes of memory allocated
 void heapSort(int arr[], int n)
 {
